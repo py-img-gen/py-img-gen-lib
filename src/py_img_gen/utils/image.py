@@ -65,13 +65,9 @@ def create_animation_gif(
         animation.ArtistAnimation: The animation object.
     """
 
-    def reduce_to_n_elements(
-        lst: List[PilImage], n: int
-    ) -> List[PilImage]:
+    def reduce_to_n_elements(lst: List[PilImage], n: int) -> List[PilImage]:
         """Reduce the number of elements in the list to `n` elements."""
-        assert (
-            n > 0
-        ), f"`n` must be greater than 0, but got {n}"
+        assert n > 0, f"`n` must be greater than 0, but got {n}"
 
         length = len(lst)
         step = max(1, length // n)
@@ -90,13 +86,8 @@ def create_animation_gif(
     fig, ax = plt.subplots(figsize=figsize)
     ax.set_axis_off()
 
-    artists = [
-        [ax.imshow(image, animated=True, cmap=cmap)]
-        for image in images
-    ]
+    artists = [[ax.imshow(image, animated=True, cmap=cmap)] for image in images]
     # Repeat the last image for `num_last_repeat` times to make the animation pause at the end
     artists += [artists[-1]] * num_last_repeat
 
-    return animation.ArtistAnimation(
-        fig=fig, artists=artists, blit=True
-    )
+    return animation.ArtistAnimation(fig=fig, artists=artists, blit=True)
