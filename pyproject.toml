@@ -1,0 +1,42 @@
+[project]
+name = "py-img-gen"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Shunsuke Kitada", email = "shunsuke.kitada.0831@gmail.com" },
+    { name = "Image Generation with Python", email = "python.image.generation@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "diffusers-ncsn",
+    "diffusers[torch]>=0.31.0",
+    "einops>=0.7.0",
+    "matplotlib>=3.5.0",
+    "torch>=1.0.0",
+    "torchvision>=0.2.1",
+    "transformers[torch]>=4.30.0",
+]
+
+[project.optional-dependencies]
+docs = [
+    "furo>=2024.8.6",
+    "myst-parser>=4.0.0",
+    "sphinx>=8.1.3",
+    "sphinx-autodoc-typehints>=3.0.0",
+    "sphinx-pyproject>=0.3.0",
+]
+
+[dependency-groups]
+dev = ["mypy>=1.0.0", "pytest-mock>=3.14.0", "pytest>=6.0.0", "ruff>=0.1.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+diffusers-ncsn = { git = "https://github.com/py-img-gen/diffusers-ncsn" }
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
