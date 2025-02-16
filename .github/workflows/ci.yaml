@@ -45,3 +45,22 @@ jobs:
       - name: Test
         run: |
           make Test
+
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        optional_package: [
+          "docs", "clip", "ncsn", "sd3", "controlnet", "quantization", "lora"
+        ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Test to install optional package
+        run: |
+          pip install .[${{ matrix.optional_package }}]
