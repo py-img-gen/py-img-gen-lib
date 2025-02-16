@@ -1829,6 +1829,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "diffusers", extra = ["torch"] },
+    { name = "diffusers-ncsn" },
     { name = "einops" },
     { name = "matplotlib" },
     { name = "torch" },
@@ -1857,9 +1858,6 @@ lora = [
     { name = "datasets" },
     { name = "peft" },
 ]
-ncsn = [
-    { name = "diffusers-ncsn" },
-]
 quantization = [
     { name = "bitsandbytes" },
 ]
@@ -1882,7 +1880,7 @@ requires-dist = [
     { name = "controlnet-aux", marker = "extra == 'controlnet'", specifier = ">=0.0.9" },
     { name = "datasets", marker = "extra == 'lora'", specifier = ">=3.1.0" },
     { name = "diffusers", extras = ["torch"], specifier = ">=0.31.0" },
-    { name = "diffusers-ncsn", marker = "extra == 'ncsn'", git = "https://github.com/py-img-gen/diffusers-ncsn" },
+    { name = "diffusers-ncsn", git = "https://github.com/py-img-gen/diffusers-ncsn" },
     { name = "einops", specifier = ">=0.7.0" },
     { name = "furo", marker = "extra == 'docs'", specifier = ">=2024.8.6" },
     { name = "matplotlib", specifier = ">=3.5.0" },
@@ -1901,7 +1899,7 @@ requires-dist = [
     { name = "torchvision", specifier = ">=0.2.1" },
     { name = "transformers", extras = ["torch"], specifier = ">=4.30.0" },
 ]
-provides-extras = ["docs", "clip", "ncsn", "sd3", "controlnet", "quantization", "lora"]
+provides-extras = ["docs", "clip", "sd3", "controlnet", "quantization", "lora"]
 
 [package.metadata.requires-dev]
 dev = [

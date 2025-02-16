@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "diffusers[torch]>=0.31.0",
+    "diffusers-ncsn",
     "einops>=0.7.0",
     "matplotlib>=3.5.0",
     "torch>=1.0.0",
@@ -26,7 +27,6 @@ docs = [
     "sphinx-pyproject>=0.3.0",
 ]
 clip = ["more-itertools>=10.6.0", "scikit-image>=0.25.1"]
-ncsn = ["diffusers-ncsn"]
 sd3 = ["protobuf<3.21.0", "sentencepiece>=0.2.0"]
 controlnet = [
     "controlnet-aux>=0.0.9",
