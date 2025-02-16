@@ -64,9 +64,7 @@ def inference(
     unet.eval()  # type: ignore[attr-defined]
 
     # Set the timesteps of the scheduler for inference steps
-    n_inference_steps = (
-        n_inference_steps or train_config.num_timesteps
-    )
+    n_inference_steps = n_inference_steps or train_config.num_timesteps
     noise_scheduler.set_timesteps(n_inference_steps)  # type: ignore[union-attr]
 
     # Create random number generator for inference for reproducibility
@@ -81,9 +79,7 @@ def inference(
     )
     # Use torch.rand for ALD scheduler and randn_tensor for DDPM and DDIM schedulers
     randn_tensor_func = (
-        torch.rand
-        if isinstance(noise_scheduler, ALDScheduler)
-        else randn_tensor
+        torch.rand if isinstance(noise_scheduler, ALDScheduler) else randn_tensor
     )
     # Generate a random sample
     # NOTE: The behavior of random number generation is different between CPU and GPU,
@@ -93,9 +89,7 @@ def inference(
 
     # Set the inference module based on the scheduler type
     inferencer_module = (
-        NCSNInference
-        if isinstance(noise_scheduler, ALDScheduler)
-        else DDPMInference
+        NCSNInference if isinstance(noise_scheduler, ALDScheduler) else DDPMInference
     )
     inferencer = inferencer_module(unet, noise_scheduler)
 
@@ -117,11 +111,7 @@ def inference(
             intermediate_images.append(decode_images(x))
 
     # Return the final image or intermediate images based on `only_final`
-    return (
-        decode_images(x)
-        if only_final
-        else intermediate_images
-    )
+    return decode_images(x) if only_final else intermediate_images
 
 
 def animation_inference(
@@ -168,6 +158,4 @@ def animation_inference(
     ]
 
     # Create an animation GIF from the animation images
-    return create_animation_gif(
-        images=images, num_frames=n_frames
-    )
+    return create_animation_gif(images=images, num_frames=n_frames)

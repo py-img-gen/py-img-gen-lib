@@ -47,9 +47,7 @@ def get_skimage_text_pairs(
         SkimageImageTextPair: A dataclass containing the images and their corresponding text descriptions.
     """
     # Use the default value of the descriptions_dict if it is not provided
-    descriptions_dict = (
-        descriptions_dict or get_skimage_descriptions()
-    )
+    descriptions_dict = descriptions_dict or get_skimage_descriptions()
 
     original_imgs: List[PilImage] = []
     original_txts: List[str] = []
@@ -74,9 +72,5 @@ def get_skimage_text_pairs(
     assert len(original_txts) == len(original_imgs)
 
     # Sort the images and texts together
-    original_txts, original_imgs = sort_together(
-        (original_txts, original_imgs)
-    )
-    return SkimageImageTextPair(
-        images=original_imgs, texts=original_txts
-    )
+    original_txts, original_imgs = sort_together((original_txts, original_imgs))
+    return SkimageImageTextPair(images=original_imgs, texts=original_txts)

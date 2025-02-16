@@ -26,20 +26,16 @@ def visualize_grid_image_for_image_text_pairs(
     Returns:
         Tuple[plt.Figure, List[plt.Axes]]: A tuple of the figure and the axes.
     """
-    assert len(images) == len(
-        texts
-    ), "The number of images and texts should be the same."
-
-    fig, axes = plt.subplots(
-        nrows=nrows, ncols=ncols, figsize=figsize
+    assert len(images) == len(texts), (
+        "The number of images and texts should be the same."
     )
+
+    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
     for i in range(nrows):
         for j in range(ncols):
             axes[i][j].imshow(images[i * ncols + j])
             axes[i][j].axis("off")
-            axes[i][j].set_title(
-                texts[i * ncols + j], fontsize=10
-            )
+            axes[i][j].set_title(texts[i * ncols + j], fontsize=10)
     return fig, axes
 
 
@@ -93,9 +89,7 @@ def visualize_image_text_similarity(
         for y in range(similarity.shape[0]):
             s = f"{similarity[y, x]:.2f}"
             a = "center"
-            ax.text(
-                x, y, s=s, ha=a, va=a, size=fontsize_text
-            )
+            ax.text(x, y, s=s, ha=a, va=a, size=fontsize_text)
 
     for side in ("left", "top", "right", "bottom"):
         plt.gca().spines[side].set_visible(False)
@@ -135,9 +129,7 @@ def visualize_zero_shot_classification_results(
             plt.gca().set_axisbelow(True)
             ax2.set_yticks(
                 ticks=y,
-                labels=[
-                    classes[idx] for idx in top_labels[i]
-                ],
+                labels=[classes[idx] for idx in top_labels[i]],
             )
             ax2.set_xlabel("Probability")
 
