@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         optional_package: [
-          "docs", "clip", "ncsn", "sd3", "controlnet", "quantization", "lora"
+          "docs", "clip", "sd3", "controlnet", "quantization", "lora"
         ]
     steps:
       - uses: actions/checkout@v4
