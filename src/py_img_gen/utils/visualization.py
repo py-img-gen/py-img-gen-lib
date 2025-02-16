@@ -1,4 +1,4 @@
-from typing import List, Sequence, Tuple, Union
+from typing import Dict, List, Sequence, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -111,7 +111,7 @@ def visualize_zero_shot_classification_results(
     nrows: int,
     ncols: int,
     figsize: Tuple[int, int] = (16, 16),
-):
+) -> None:
     with plt.style.context("ggplot"):
         fig = plt.figure(figsize=figsize)
         y = np.arange(top_probs.shape[-1])
@@ -134,3 +134,25 @@ def visualize_zero_shot_classification_results(
             ax2.set_xlabel("Probability")
 
         fig.subplots_adjust(wspace=0.5)
+
+
+def visualize_multiple_images_with_titles(
+    images: Dict[str, PilImage],
+    dpi: int = 300,
+    fontsize_title: int = 5,
+) -> None:
+    """Visualize multiple images with their titles.
+
+    Args:
+        images (Dict[str, PilImage]): A dictionary of images and their titles.
+        dpi (int, optional): The dots per inch of the figure. Defaults to 300.
+        fontsize_title (int, optional): The fontsize of the title. Defaults to 5.
+    """
+    fig, axes = plt.subplots(nrows=1, ncols=len(images), dpi=dpi)
+
+    for i, (k, image) in enumerate(images.items()):
+        axes[i].imshow(image)
+        axes[i].set_title(k, fontsize=fontsize_title)
+        axes[i].axis("off")
+
+    fig.tight_layout()
