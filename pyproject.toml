@@ -1,6 +1,6 @@
 [project]
 name = "py-img-gen"
-version = "0.0.1"
+version = "0.1.0"
 description = 'A library for the book "Image Generation with Python"'
 authors = [
     { name = "Shunsuke Kitada", email = "shunsuke.kitada.0831@gmail.com" },
