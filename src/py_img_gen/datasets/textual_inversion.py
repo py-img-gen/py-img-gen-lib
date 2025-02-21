@@ -81,7 +81,8 @@ class TextualInversionDataset(Dataset):
     def __getitem__(self, idx: int) -> Example:
         # 画像のパスから画像を読み込み
         image_pil = cast(
-            Image.open(self.image_paths[idx % self.num_images]), Image.Image
+            Image.Image,
+            Image.open(self.image_paths[idx % self.num_images]),
         )
 
         if not image_pil.mode == "RGB":
