@@ -74,13 +74,7 @@ def save_concept_embedding(
         .get_input_embeddings()
         .weight[placeholder_token_id]
     )
-    learned_embeds_dict = {
-        placeholder_token: learned_embeds.clone()
-        .detach()
-        .cpu()
-    }
+    learned_embeds_dict = {placeholder_token: learned_embeds.clone().detach().cpu()}
 
-    logger.info(
-        f"Saving the learned embeddings to {save_path}"
-    )
+    logger.info(f"Saving the learned embeddings to {save_path}")
     torch.save(learned_embeds_dict, save_path)

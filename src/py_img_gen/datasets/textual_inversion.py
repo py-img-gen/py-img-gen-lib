@@ -13,9 +13,7 @@ from transformers.tokenization_utils import (
 )
 
 # 画像の拡大縮小方法の選択肢を定義
-InterpolationType = Literal[
-    "linear", "bilinear", "bicubic", "lanczos", "nearest"
-]
+InterpolationType = Literal["linear", "bilinear", "bicubic", "lanczos", "nearest"]
 
 
 #
@@ -63,14 +61,10 @@ class TextualInversionDataset(Dataset):
 
         self.num_images = len(self.image_paths)
         self.dataset_length = (
-            self.num_images * repeats
-            if split == "train"
-            else self.num_images
+            self.num_images * repeats if split == "train" else self.num_images
         )
 
-        self.interpolation = PIL_INTERPOLATION[
-            interpolation
-        ]
+        self.interpolation = PIL_INTERPOLATION[interpolation]
 
         # self.templates = (
         #     IMAGENET_STYLE_TEMPLATES_SMALL
@@ -79,20 +73,14 @@ class TextualInversionDataset(Dataset):
         # )
         self.templates = templates
 
-        self.flip_transform = (
-            transforms.RandomHorizontalFlip(
-                self.flip_proba
-            )
-        )
+        self.flip_transform = transforms.RandomHorizontalFlip(self.flip_proba)
 
     def __len__(self) -> int:
         return self.dataset_length
 
     def __getitem__(self, idx: int) -> Example:
         # 画像のパスから画像を読み込み
-        image_pil = Image.open(
-            self.image_paths[idx % self.num_images]
-        )
+        image_pil = Image.open(self.image_paths[idx % self.num_images])
 
         if not image_pil.mode == "RGB":
             image_pil = image_pil.convert("RGB")
@@ -100,9 +88,7 @@ class TextualInversionDataset(Dataset):
         placeholder_string = self.placeholder_token
         # 上記で定義したプロンプトのテンプレートリストからランダムに
         # 1 つ取ってきて、placeholder_string を埋め込む
-        text = random.choice(self.templates).format(
-            placeholder_string
-        )
+        text = random.choice(self.templates).format(placeholder_string)
 
         # tokenizer で文章をトークン列に変換
         input_ids = self.tokenizer(
@@ -137,13 +123,9 @@ class TextualInversionDataset(Dataset):
 
         image_pil = self.flip_transform(image_pil)
         image_arr = np.array(image_pil).astype(np.uint8)
-        image_arr = (image_arr / 127.5 - 1.0).astype(
-            np.float32
-        )
+        image_arr = (image_arr / 127.5 - 1.0).astype(np.float32)
 
-        pixel_values = torch.from_numpy(image_arr).permute(
-            2, 0, 1
-        )
+        pixel_values = torch.from_numpy(image_arr).permute(2, 0, 1)
 
         return {
             "input_ids": input_ids,

@@ -82,17 +82,13 @@ class DreamBoothDataset(Dataset):
     image_size: int = 512
     is_center_crop: bool = False
 
-    _instance_image_paths: Optional[List[pathlib.Path]] = (
-        None
-    )
+    _instance_image_paths: Optional[List[pathlib.Path]] = None
     _class_image_paths: Optional[List[pathlib.Path]] = None
     _image_transforms: Optional[T.Compose] = None
 
     def __post_init__(self) -> None:
         assert self.instance_data_root.exists()
-        self._instance_image_paths = list(
-            self.instance_data_root.iterdir()
-        )
+        self._instance_image_paths = list(self.instance_data_root.iterdir())
 
     @property
     def instance_image_paths(self) -> List[pathlib.Path]:
@@ -114,17 +110,11 @@ class DreamBoothDataset(Dataset):
 
     @property
     def num_class_images(self) -> int:
-        return (
-            len(self.class_image_paths)
-            if self.class_image_paths is not None
-            else 0
-        )
+        return len(self.class_image_paths) if self.class_image_paths is not None else 0
 
     @property
     def dataset_length(self) -> int:
-        return max(
-            self.num_instance_images, self.num_class_images
-        )
+        return max(self.num_instance_images, self.num_class_images)
 
     @property
     def image_transforms(self) -> T.Compose:
@@ -156,9 +146,7 @@ class DreamBoothDataset(Dataset):
         #
         # プロンプトのトークナイズ
         #
-        text_inputs = tokenize_prompt(
-            prompt=prompt, tokenizer=self.tokenizer
-        )
+        text_inputs = tokenize_prompt(prompt=prompt, tokenizer=self.tokenizer)
 
         return {
             "images": image_th,
@@ -186,10 +174,7 @@ class DreamBoothDataset(Dataset):
         #
         # Class データも使用する場合
         #
-        assert (
-            self.class_image_paths is not None
-            and self.class_prompt is not None
-        )
+        assert self.class_image_paths is not None and self.class_prompt is not None
         class_example = self.get_example(
             idx,
             image_paths=self.class_image_paths,

@@ -21,9 +21,7 @@ def generate_validation_images(
             num_images_per_prompt=num_images_per_prompt,
         )
     images = output.images
-    image = make_image_grid(
-        images=images, rows=1, cols=len(images)
-    )
+    image = make_image_grid(images=images, rows=1, cols=len(images))
     if epoch != "latest":
         epoch_dir = target_dir / f"{epoch=:03d}"
         epoch_dir.mkdir(exist_ok=True, parents=True)

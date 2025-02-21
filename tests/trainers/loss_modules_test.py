@@ -41,9 +41,7 @@ class TestLossModule(BaseLossModuleTest):
             num_train_timesteps=10,
         )
 
-    def test_loss_module(
-        self, unet: UNet2DModel, bsz: int = 2
-    ):
+    def test_loss_module(self, unet: UNet2DModel, bsz: int = 2):
         loss_module = LossModule(unet=unet)
         x_shape = (
             bsz,
@@ -73,9 +71,7 @@ class TestLossDDPM(BaseLossModuleTest):
         return DDPMModelConfig()
 
     @pytest.fixture
-    def unet(
-        self, model_config: DDPMModelConfig
-    ) -> UNet2DModel:
+    def unet(self, model_config: DDPMModelConfig) -> UNet2DModel:
         unet = UNet2DModel(**asdict(model_config))
         unet.eval()  # Set the model to evaluation mode for testing
         return unet
@@ -94,9 +90,7 @@ class TestLossDDPM(BaseLossModuleTest):
         )
         x = randn_tensor(shape=x_shape)
         z = torch.randn_like(x)
-        t = torch.randint(
-            0, train_config.num_timesteps, size=(bsz,)
-        )
+        t = torch.randint(0, train_config.num_timesteps, size=(bsz,))
 
         loss_module = LossDDPM(unet=unet)
         loss = loss_module(x_noisy=x, z=z, t=t)
@@ -139,9 +133,7 @@ class TestLossNCSN(BaseLossModuleTest):
         )
         x = randn_tensor(shape=x_shape)
         z = torch.randn_like(x)
-        t = torch.randint(
-            0, train_config.num_timesteps, size=(bsz,)
-        )
+        t = torch.randint(0, train_config.num_timesteps, size=(bsz,))
 
         loss_module = LossNCSN(unet=unet)
         loss = loss_module(x_noisy=x, z=z, t=t)

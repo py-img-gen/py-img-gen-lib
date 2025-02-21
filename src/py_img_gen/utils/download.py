@@ -17,9 +17,7 @@ def download_image(
     if save_path.exists() and not force_download:
         return
 
-    logger.info(
-        f"Downloading image from {image_url} to {save_path}"
-    )
+    logger.info(f"Downloading image from {image_url} to {save_path}")
     image = load_image(image_url)
     image.save(save_path)
 
@@ -28,10 +26,6 @@ def download_images(
     image_urls: Sequence[str],
     save_dir_path: pathlib.Path,
 ) -> None:
-    for i, image_url in enumerate(
-        tqdm(image_urls, desc="Downloading images")
-    ):
+    for i, image_url in enumerate(tqdm(image_urls, desc="Downloading images")):
         save_path = save_dir_path / f"{i}.png"
-        download_image(
-            image_url=image_url, save_path=save_path
-        )
+        download_image(image_url=image_url, save_path=save_path)

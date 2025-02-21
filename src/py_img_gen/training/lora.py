@@ -45,15 +45,9 @@ def get_lora_transforms(
 
 
 def collate_fn(examples) -> SimpleTextToImageExamples:
-    pixel_values = torch.stack(
-        [example["pixel_values"] for example in examples]
-    )
-    pixel_values = pixel_values.to(
-        memory_format=torch.contiguous_format
-    ).float()
-    input_ids = torch.stack(
-        [example["input_ids"] for example in examples]
-    )
+    pixel_values = torch.stack([example["pixel_values"] for example in examples])
+    pixel_values = pixel_values.to(memory_format=torch.contiguous_format).float()
+    input_ids = torch.stack([example["input_ids"] for example in examples])
     return {
         "pixel_values": pixel_values,
         "input_ids": input_ids,
@@ -64,9 +58,7 @@ def save_lora_weights(
     unet: UNet2DConditionModel,
     output_dir: pathlib.Path,
     epoch: int,
-    pipeline_cls: Type[
-        StableDiffusionPipeline
-    ] = StableDiffusionPipeline,
+    pipeline_cls: Type[StableDiffusionPipeline] = StableDiffusionPipeline,
 ):
     save_dir_1 = output_dir / f"{epoch=:03d}"
     save_dir_2 = output_dir / "epoch='latest'"
@@ -87,17 +79,13 @@ def load_pipeline_with_lora(
     model_id: str,
     target_dir: pathlib.Path,
     epoch: int,
-    pipeline_cls: Type[
-        StableDiffusionPipeline
-    ] = StableDiffusionPipeline,
+    pipeline_cls: Type[StableDiffusionPipeline] = StableDiffusionPipeline,
     device: Optional[torch.device] = None,
     torch_dtype: torch.dtype = torch.float16,
 ) -> StableDiffusionPipeline:
     assert issubclass(pipeline_cls, StableDiffusionPipeline)
 
-    pipe = pipeline_cls.from_pretrained(
-        model_id, torch_dtype=torch_dtype
-    )
+    pipe = pipeline_cls.from_pretrained(model_id, torch_dtype=torch_dtype)
     pipe.set_progress_bar_config(disable=True)
     pipe = pipe.to(device)
 
