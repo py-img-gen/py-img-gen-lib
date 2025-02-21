@@ -44,7 +44,7 @@ jobs:
 
       - name: Test
         run: |
-          make Test
+          make test
 
   install:
     runs-on: ubuntu-latest
