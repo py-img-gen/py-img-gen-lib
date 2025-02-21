@@ -9,12 +9,9 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "diffusers-ncsn",
     "diffusers[torch]>=0.31.0",
     "einops>=0.7.0",
     "matplotlib>=3.5.0",
-    "more-itertools>=10.6.0",
-    "scikit-image>=0.25.1",
     "torch>=1.0.0",
     "torchvision>=0.2.1",
     "transformers[torch]>=4.30.0",
@@ -28,6 +25,16 @@ docs = [
     "sphinx-autodoc-typehints>=3.0.0",
     "sphinx-pyproject>=0.3.0",
 ]
+ncsn = ["diffusers-ncsn@git+https://github.com/py-img-gen/diffusers-ncsn"]
+clip = ["more-itertools>=10.6.0", "scikit-image>=0.25.1"]
+sd3 = ["protobuf<3.21.0", "sentencepiece>=0.2.0"]
+controlnet = [
+    "controlnet-aux>=0.0.9",
+    "mediapipe>=0.10.11",
+    "opencv-python>=4.10.0.84",
+]
+quantization = ["bitsandbytes>=0.44.1"]
+lora = ["datasets>=3.1.0", "peft>=0.13.2"]
 
 [dependency-groups]
 dev = ["mypy>=1.0.0", "pytest-mock>=3.14.0", "pytest>=6.0.0", "ruff>=0.1.5"]
@@ -36,9 +43,9 @@ dev = ["mypy>=1.0.0", "pytest-mock>=3.14.0", "pytest>=6.0.0", "ruff>=0.1.5"]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.uv.sources]
-diffusers-ncsn = { git = "https://github.com/py-img-gen/diffusers-ncsn" }
-
 [tool.mypy]
 python_version = "3.10"
 ignore_missing_imports = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
