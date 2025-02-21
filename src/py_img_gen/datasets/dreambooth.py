@@ -5,10 +5,7 @@ from typing import List, Optional, TypedDict
 import torch
 import torchvision.transforms as T
 from diffusers.utils import load_image
-from PIL import Image
-from PIL.ImageOps import exif_transpose
 from torch.utils.data import Dataset
-from torchvision import transforms
 from transformers import CLIPTokenizer
 
 from py_img_gen.utils import tokenize_prompt
