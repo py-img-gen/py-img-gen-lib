@@ -1,12 +1,33 @@
 [project]
 name = "py-img-gen"
-version = "0.1.0"
-description = ""
+version = "0.0.1"
+description = 'A library for the book "Image Generation with Python"'
 authors = [
     { name = "Shunsuke Kitada", email = "shunsuke.kitada.0831@gmail.com" },
     { name = "Image Generation with Python", email = "python.image.generation@gmail.com" },
 ]
 readme = "README.md"
+license = "MIT"
+keywords = [
+    "python",
+    "image-generation",
+    "diffusers",
+    "transformers",
+    "torch",
+    "torchvision",
+    "controlnet",
+    "lora",
+    "clip",
+    "stable-diffusion",
+]
+classifiers = [
+    # Audience
+    "Intended Audience :: Developers",
+    # Supported Python versions
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
 requires-python = ">=3.10"
 dependencies = [
     "diffusers[torch]>=0.31.0",
@@ -38,6 +59,10 @@ lora = ["datasets>=3.1.0", "peft>=0.13.2"]
 
 [dependency-groups]
 dev = ["mypy>=1.0.0", "pytest-mock>=3.14.0", "pytest>=6.0.0", "ruff>=0.1.5"]
+
+[project.urls]
+Repository = "https://github.com/py-img-gen/py-img-gen-lib"
+Issues = "https://github.com/py-img-gen/py-img-gen-lib/issues"
 
 [build-system]
 requires = ["hatchling"]
