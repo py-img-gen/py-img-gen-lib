@@ -28,7 +28,6 @@ if TYPE_CHECKING:
     from py_img_gen.trainers.config import (
         BaseTrainConfig,
         EvalConfig,
-        TrainDDPMConfig,
     )
 
 
@@ -125,7 +124,7 @@ def inference(
 
 
 def animation_inference(
-    train_config: TrainDDPMConfig,
+    train_config: BaseTrainConfig,
     eval_config: EvalConfig,
     unet: UNet2DModel,
     noise_scheduler: Union[DDPMScheduler, DDIMScheduler],
