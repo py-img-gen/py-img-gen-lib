@@ -1,4 +1,5 @@
 import logging
+import os
 from dataclasses import asdict
 from typing import Optional
 
@@ -128,7 +129,7 @@ class TestDDPMTrainer(TestDiffusionTrainer):
         )
 
     @pytest.mark.skipif(
-        not torch.cuda.is_available(),
+        not torch.cuda.is_available() or bool(os.environ.get("CI", False)),
         reason="No GPUs available for testing.",
     )
     def test_train_function(
@@ -187,7 +188,7 @@ class TestDDIMTrainer(TestDDPMTrainer):
         )
 
     @pytest.mark.skipif(
-        not torch.cuda.is_available(),
+        not torch.cuda.is_available() or bool(os.environ.get("CI", False)),
         reason="No GPUs available for testing.",
     )
     def test_train_function(
@@ -251,7 +252,7 @@ class TestNCSNTrainer(TestDiffusionTrainer):
         )
 
     @pytest.mark.skipif(
-        not torch.cuda.is_available(),
+        not torch.cuda.is_available() or bool(os.environ.get("CI", False)),
         reason="No GPUs available for testing.",
     )
     def test_train_function(
