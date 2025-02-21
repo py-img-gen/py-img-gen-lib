@@ -53,9 +53,10 @@ def get_skimage_text_pairs(
     original_txts: List[str] = []
 
     # Get the paths of images from skimage that are either .png or .jpg
+    skimage_data_dir = skimage.data_dir  # type: ignore[attr-defined]
     filenames = [
         fname
-        for fname in os.listdir(skimage.data_dir)
+        for fname in os.listdir(skimage_data_dir)
         if fname.endswith(".png") or fname.endswith(".jpg")
     ]
     for fname in filenames:
@@ -63,7 +64,7 @@ def get_skimage_text_pairs(
         if name not in descriptions_dict:
             continue
 
-        image_path = os.path.join(skimage.data_dir, fname)
+        image_path = os.path.join(skimage_data_dir, fname)
         original_imgs.append(load_image(image_path))
 
         original_txts.append(descriptions_dict[name])
@@ -72,5 +73,5 @@ def get_skimage_text_pairs(
     assert len(original_txts) == len(original_imgs)
 
     # Sort the images and texts together
-    original_txts, original_imgs = sort_together((original_txts, original_imgs))
+    original_txts, original_imgs = sort_together((original_txts, original_imgs))  # type: ignore
     return SkimageImageTextPair(images=original_imgs, texts=original_txts)

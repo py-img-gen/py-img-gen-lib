@@ -8,7 +8,7 @@ setup:
 
 .PHONY: install
 install:
-	uv sync
+	uv sync --all-extras
 
 .PHONY: install-doc
 install-doc:

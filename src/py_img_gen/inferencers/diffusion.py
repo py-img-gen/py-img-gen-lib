@@ -28,7 +28,6 @@ if TYPE_CHECKING:
     from py_img_gen.trainers.config import (
         BaseTrainConfig,
         EvalConfig,
-        TrainDDPMConfig,
     )
 
 
@@ -73,9 +72,9 @@ def inference(
     # Set the shape of the noise and then generate random noise
     x_shape = (
         train_config.batch_size,
-        unet.config.in_channels,
-        unet.config.sample_size,
-        unet.config.sample_size,
+        unet.config.in_channels,  # type: ignore[attr-defined]
+        unet.config.sample_size,  # type: ignore[attr-defined]
+        unet.config.sample_size,  # type: ignore[attr-defined]
     )
     # Use torch.rand for ALD scheduler and randn_tensor for DDPM and DDIM schedulers
     randn_tensor_func = (
@@ -103,8 +102,8 @@ def inference(
         x = inferencer(
             x=x,
             t=t,
-            train_config=train_config,
             generator=generator,
+            train_config=train_config,  # type: ignore[arg-type]
         )
         if not only_final:
             # Store the intermediate images if only_final is False
@@ -115,7 +114,7 @@ def inference(
 
 
 def animation_inference(
-    train_config: TrainDDPMConfig,
+    train_config: BaseTrainConfig,
     eval_config: EvalConfig,
     unet: UNet2DModel,
     noise_scheduler: Union[DDPMScheduler, DDIMScheduler],
@@ -150,7 +149,7 @@ def animation_inference(
     # Create a grid of images for each timestep
     images = [
         make_image_grid(
-            images=images,
+            images=images,  # type: ignore[arg-type]
             rows=eval_config.num_grid_rows,
             cols=eval_config.num_grid_cols,
         )
