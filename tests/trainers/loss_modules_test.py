@@ -84,9 +84,9 @@ class TestLossDDPM(BaseLossModuleTest):
     ):
         x_shape = (
             bsz,
-            unet.config.in_channels,
-            unet.config.sample_size,
-            unet.config.sample_size,
+            unet.config.in_channels,  # type: ignore[attr-defined]
+            unet.config.sample_size,  # type: ignore[attr-defined]
+            unet.config.sample_size,  # type: ignore[attr-defined]
         )
         x = randn_tensor(shape=x_shape)
         z = torch.randn_like(x)
@@ -127,9 +127,9 @@ class TestLossNCSN(BaseLossModuleTest):
     ):
         x_shape = (
             bsz,
-            unet.config.in_channels,
-            unet.config.sample_size,
-            unet.config.sample_size,
+            unet.config.in_channels,  # type: ignore[attr-defined]
+            unet.config.sample_size,  # type: ignore[attr-defined]
+            unet.config.sample_size,  # type: ignore[attr-defined]
         )
         x = randn_tensor(shape=x_shape)
         z = torch.randn_like(x)

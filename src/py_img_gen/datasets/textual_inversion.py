@@ -1,6 +1,6 @@
 import os
 import random
-from typing import Literal, Sequence, TypedDict
+from typing import Literal, Sequence, TypedDict, cast
 
 import numpy as np
 import torch
@@ -80,7 +80,9 @@ class TextualInversionDataset(Dataset):
 
     def __getitem__(self, idx: int) -> Example:
         # 画像のパスから画像を読み込み
-        image_pil = Image.open(self.image_paths[idx % self.num_images])
+        image_pil = cast(
+            Image.open(self.image_paths[idx % self.num_images]), Image.Image
+        )
 
         if not image_pil.mode == "RGB":
             image_pil = image_pil.convert("RGB")

@@ -14,8 +14,10 @@ def generate_validation_images(
     epoch: Union[int, str] = "latest",
     seed: int = 0,
 ) -> None:
-    with torch.autocast(str(pipe.device)):
-        output = pipe(
+    device: torch.device = pipe.device  # type: ignore[attr-defined]
+
+    with torch.autocast(str(device)):
+        output = pipe(  # type: ignore[operator]
             prompt=prompt,
             generator=torch.manual_seed(seed),
             num_images_per_prompt=num_images_per_prompt,

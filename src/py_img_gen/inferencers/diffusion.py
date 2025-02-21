@@ -102,8 +102,8 @@ def inference(
         x = inferencer(
             x=x,
             t=t,
-            train_config=train_config,
             generator=generator,
+            train_config=train_config,  # type: ignore[arg-type]
         )
         if not only_final:
             # Store the intermediate images if only_final is False
@@ -149,7 +149,7 @@ def animation_inference(
     # Create a grid of images for each timestep
     images = [
         make_image_grid(
-            images=images,
+            images=images,  # type: ignore[arg-type]
             rows=eval_config.num_grid_rows,
             cols=eval_config.num_grid_cols,
         )
