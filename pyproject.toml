@@ -46,7 +46,6 @@ docs = [
     "sphinx-autodoc-typehints>=3.0.0",
     "sphinx-pyproject>=0.3.0",
 ]
-ncsn = ["diffusers-ncsn@git+https://github.com/py-img-gen/diffusers-ncsn"]
 clip = ["more-itertools>=10.6.0", "scikit-image>=0.25.1"]
 sd3 = ["protobuf<3.21.0", "sentencepiece>=0.2.0"]
 controlnet = [
@@ -56,6 +55,7 @@ controlnet = [
 ]
 quantization = ["bitsandbytes>=0.44.1"]
 lora = ["datasets>=3.1.0", "peft>=0.13.2"]
+ncsn = ["diffusers-ncsn>=0.1.0"]
 
 [dependency-groups]
 dev = ["mypy>=1.0.0", "pytest-mock>=3.14.0", "pytest>=6.0.0", "ruff>=0.1.5"]
@@ -71,6 +71,3 @@ build-backend = "hatchling.build"
 [tool.mypy]
 python_version = "3.10"
 ignore_missing_imports = true
-
-[tool.hatch.metadata]
-allow-direct-references = true
